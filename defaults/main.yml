@@ -67,3 +67,5 @@ openvpn_simple_auth_password: ""
 
 # Whether to embed CA, cert, and key info inside client OVPN config file.
 openvpn_unified_client_profiles: no
+
+openvpn_easyrsa_keyconfig: openssl-1.0.0.cnf
