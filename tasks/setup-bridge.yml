@@ -8,11 +8,6 @@
   register: bridge
   tags: [bridge]
 
-- name: Restart networking
-  service: name=networking state=restarted
-  when: openvpn_bridge and bridge|changed
-  tags: [bridge]
-
 - file:
     path: "/etc/network/interfaces.d/{{ openvpn_dev }}"
     state: absent
