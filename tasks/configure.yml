@@ -22,6 +22,15 @@
   template: src={{item}}.j2 dest={{openvpn_etcdir}}/{{item}} mode=0700
   with_items: [vars, build-server.sh, build-client.sh, revoke-client.sh]
 
+- name: Check if the ca certificate exists
+  stat:
+    path: "{{ openvpn_etcdir }}/keys/ca.crt"
+  register: ca_crt
+
+- name: Generate CA
+  shell: "source {{ openvpn_etcdir}}/vars && {{ openvpn_etcdir }}/easy-rsa/pkitool --initca"
+  when: not ca_crt.stat.exists
+
 - name: Generate Server keys
   command: "{{openvpn_etcdir}}/build-server.sh"
   args: { creates: "{{ openvpn_keydir }}" }

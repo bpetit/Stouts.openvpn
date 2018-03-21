@@ -17,7 +17,7 @@ export GREP="grep"
 # This variable should point to
 # the openssl.cnf file included
 # with easy-rsa.
-export KEY_CONFIG=`$EASY_RSA/{{ openvpn_easyrsa_keyconfig }}`
+export KEY_CONFIG="{{ openvpn_etcdir }}/easy-rsa/{{ openvpn_easyrsa_keyconfig }}"
 
 # Edit this variable to point to
 # your soon-to-be-created key
