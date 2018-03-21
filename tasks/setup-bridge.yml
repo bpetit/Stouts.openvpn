@@ -13,3 +13,7 @@
     state: absent
   when: not openvpn_bridge
   tags: [bridge]
+
+- name: Enable openvpn network interface
+  shell: "ifup br-{{ openvpn_dev }}"
+  when: openvpn_bridge
