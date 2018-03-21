@@ -147,7 +147,7 @@ group nogroup
 client-to-client
 {% endif %}
 
-{% if openvpn_routes %}
+{% if openvpn_routes is defined %}
 {% for r in openvpn_routes %}
 push "route {{ r }}"
 {% endfor %}
