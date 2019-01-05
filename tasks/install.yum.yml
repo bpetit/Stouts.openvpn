@@ -1,3 +1,4 @@
 ---
 
-- fail: msg="RedHat is not supported now"
+- fail:
+    msg: "RedHat is not supported now"

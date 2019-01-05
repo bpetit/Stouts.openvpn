@@ -9,27 +9,38 @@
 - name: Add OpenVPN repo sources
   apt_repository:
     filename: openvpn
-    repo: deb http://swupdate.openvpn.net/apt {{ ansible_lsb.codename }} main
+    repo: "deb http://swupdate.openvpn.net/apt {{ ansible_lsb.codename }} main"
   when: openvpn_use_external_repo
 
 - name: Install requirements (Debian)
-  apt: name={{item}} force=yes
-  with_items: [openvpn, udev, openssl, zip]
+  apt:
+    name: "{{ packages }}"
+    force: yes
+  vars:
+    packages: ['openvpn', 'udev', 'openssl', 'zip']
 
 - name: Install dependencies (Debian)
-  apt: name={{item}} force=yes
+  apt:
+      name: "{{ packages }}"
+      force: yes
   when: openvpn_use_pam_users|default(false)
-  with_items: [libpam-pwdfile, python-passlib]
+  vars:
+    packages: ['libpam-pwdfile', 'python-passlib'] 
 
 - name: Install easy-rsa package
-  apt: name=easy-rsa
+  apt:
+    name: easy-rsa
   when: openvpn_use_system_easyrsa
 
 - name: Install LDAP dependencies (Debian)
-  apt: name=openvpn-auth-ldap force=yes
+  apt:
+    name: openvpn-auth-ldap
+    force: yes
   when: openvpn_use_ldap
 
 - name: Install bridge dependencies (Debian)
-  apt: name={{item}}
+  apt:
+    name: "{{ packages }}"
   when: openvpn_bridge
-  with_items: [bridge-utils]
+  vars:
+    packages: ['bridge-utils']
